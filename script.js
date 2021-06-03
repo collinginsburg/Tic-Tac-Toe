@@ -102,15 +102,6 @@ const gamePlay = (() => {
     const checkScore = () => {
 
     }
-    const nextTurn = () => {
-        if (P1turn === true) {
-            P1turn = false;
-            P2turn = true;
-        } else if (P2turn === true){
-            P1turn = true;
-            P2turn = false;
-        }
-    }
     const play = () => {
         gameBoard.displayGameboard();
         checkScore();
@@ -128,7 +119,6 @@ const gamePlay = (() => {
     };
     return{
         play,
-        nextTurn,
         whoseTurn,
         getP1turn,
         getP2turn
