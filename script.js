@@ -1,14 +1,65 @@
 const gameBoard = (() => {
     const EMPTY = null;
-    const GAMEBOARDARRAY =
-    [
-        [EMPTY, EMPTY, EMPTY], 
-        [EMPTY, EMPTY, EMPTY], 
-        [EMPTY, EMPTY, EMPTY]
-    ];
+    // const GAMEBOARDARRAY = ["X", "O", "X", "X", EMPTY, "X", "X", "O", "X"];
+    const GAMEBOARDARRAY = [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY];
+
+    const addSymboltoGameboardArray = (e) => {
+
+        let index = e.target.getAttribute('data-index');
+
+        if (gameBoard.GAMEBOARDARRAY[index] === EMPTY){
+            if (gamePlay.getP1turn() === true){
+                gameBoard.GAMEBOARDARRAY[index] = PLAYER1.getSymbol();
+
+            } else if (gamePlay.getP2turn() === true){
+                gameBoard.GAMEBOARDARRAY[index] = PLAYER2.getSymbol();
+            }
+            gamePlay.play();
+        };
+        
+    }
+
+    const eventListeners = (() => {
+        let squares = document.querySelectorAll('.gameboardsquare');
+        squares.forEach(square => { square.addEventListener('click', addSymboltoGameboardArray)
+            
+        });
+    })();
+
+    const initalDisplay = (() => {
+        for(i=0; i< GAMEBOARDARRAY.length; i++){
+            let square = document.createElement('div');
+            square.textContent = GAMEBOARDARRAY[i];
+            square.setAttribute('data-index', i);
+            square.classList.add('square');
+            let grid = document.querySelector('.grid');
+            grid.appendChild(square);
+        }
+    })();
+
+    const displayGameboard = () => {
+        let grid = document.querySelector('.grid');
+        let squares = document.querySelectorAll('.square');
+        squares.forEach(square => {
+            grid.removeChild(square);
+        }
+        );        
+        for(i=0; i< GAMEBOARDARRAY.length; i++){
+            let square = document.createElement('div');
+            square.textContent = GAMEBOARDARRAY[i];
+            square.setAttribute('data-index', i);
+            square.classList.add('square');
+            let grid = document.querySelector('.grid');
+            grid.appendChild(square);
+        }
+    }
+
     return{
-        GAMEBOARDARRAY
+        displayGameboard,
+        GAMEBOARDARRAY,
+        addSymboltoGameboardArray
     };
+
 })();
 
 
@@ -23,13 +74,64 @@ const playerFactory = (playernumber, name, playersymbol) => {
 const PLAYER1 = playerFactory(1, "Collin", "X");
 const PLAYER2 = playerFactory(2, "Adam", "O");
 
-// const gamePlay = (() => {
-//     const P1turn = true;
-//     const P2turn = false;
-//     const play = () => 
-//         if (P1turn)
-//     return{
-//         play
+const gamePlay = (() => {
+    let P1turn = true;
+    let P2turn = false;
+    let gameWon = false;
+    const getP1turn = () => {
+        if (P1turn === true){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    const getP2turn = () => {
+        if (P2turn === true){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    const whoseTurn = () => {
+        if (P1turn === true){
+            console.log("It is Player 1's turn.")
+        } else if (P2turn === true ){
+            console.log("It is Player 2's turn.")
+        }
+    }
+    const checkScore = () => {
+
+    }
+    const nextTurn = () => {
+        if (P1turn === true) {
+            P1turn = false;
+            P2turn = true;
+        } else if (P2turn === true){
+            P1turn = true;
+            P2turn = false;
+        }
+    }
+    const play = () => {
+        gameBoard.displayGameboard();
+        checkScore();
+        if (gameWon === true){
+
+        } else {
+            if (P1turn === true) {
+                P1turn = false;
+                P2turn = true;
+            } else if (P2turn === true){
+                P1turn = true;
+                P2turn = false;
+            }
+        }
+    };
+    return{
+        play,
+        nextTurn,
+        whoseTurn,
+        getP1turn,
+        getP2turn
         
-//     };
-// })();
+    };
+})();
