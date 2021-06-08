@@ -137,6 +137,8 @@ const gamePlay = (() => {
     }
     const startGame = () => {
         waitingForInput = false;
+        winnermessage.textContent = "tap board to play...";
+        winnermessage.style.font = "20px monospace";
         playerInputs();
         displayPlayerNames();
         initialGameSettings();
@@ -145,7 +147,8 @@ const gamePlay = (() => {
 
     const resetGame = () => {
         waitingForInput = true;
-        winnermessage.textContent = "";
+        winnermessage.textContent = "Welcome!";
+        winnermessage.style.font = "45px monospace";
         initialGameSettings();
         displayPlayerInputPanel();
         gameBoard.resetGameBoard();
