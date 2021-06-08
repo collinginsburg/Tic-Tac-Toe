@@ -6,7 +6,7 @@ body{
 
 .pagewrapper{
     display: flex;
-    /* flex-direction: row; */
+    flex-direction: column;
     height: 100%;
     width: 100%;
     justify-content: center;
@@ -36,7 +36,6 @@ body{
     position: absolute;
     width: 300px;
     height: 300px;
-    z-index: 0;
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
@@ -68,4 +67,127 @@ body{
 .gameboardsquare.seven{
     border-left: 2px black solid;
     border-right: 2px black solid;
+}
+
+
+.playerinfodiv{
+    display: flex;
+    width: 270px;
+    height: 240px;
+    margin-top: 50px;
+    background-color:rgba(128, 128, 128, 0.103);
+}
+
+.namedisplay{
+    /* display: none; */
+    width:100%;
+    height: 100%;
+
+}
+
+.namedisplaygrid{
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: repeat(9, 1fr);
+    grid-template-columns: repeat(14, 1fr);
+    grid-template-areas: 
+    ". . . . . . . . . . . . . ."
+    ". header1 header1 header1 . . . . . . . . . ."
+    ". header1 header1 header1 . playername1 playername1 playername1 playername1 playername1 playername1 playername1 . ."
+    ". . . . . . . . . . . . . ."
+    ". header2 header2 header2 . . . . . . . . . ."
+    ". header2 header2 header2 . playername2 playername2 playername2 playername2 playername2 playername2 playername2 . ."
+    ". . . . . . . . . . . . . ."
+    ". . . . . resetgame resetgame resetgame . . . . . ."
+    ". . . . . . . . . . . . . ."
+    ;
+}
+
+
+.playername{
+    font-size: 30px;
+}
+.playername.one{
+    grid-area: playername1;
+
+}
+.playername.two{
+    grid-area: playername2;
+}
+.resetgamearea{
+    /* height: 100%; */
+    font-size: 12px;
+    grid-area: resetgame;
+}
+#resetgame{
+    /* height: 100px; */
+}
+
+.startoptions{
+    display: none;
+    /* display: flex; */
+    /* width: 100%; */
+    height: 100%;
+    font-size: 20px;
+}
+.input{
+    width: 100%;
+}
+.startoptioninputs{
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: repeat(9, 1fr);
+    grid-template-columns: repeat(14, 1fr);
+    grid-template-areas: 
+    ". . . . . . . . . . . . . ."
+    ". header1 header1 header1 . p1inputtitle p1inputtitle p1inputtitle p1inputtitle p1inputtitle p1inputtitle p1inputtitle . ."
+    ". header1 header1 header1 . p1 p1 p1 p1 p1 p1 p1 . ."
+    ". . . . . . . . . . . . . ."
+    ". header2 header2 header2 . p2inputtitle p2inputtitle p2inputtitle p2inputtitle p2inputtitle p2inputtitle p2inputtitle . ."
+    ". header2 header2 header2 . p2 p2 p2 p2 p2 p2 p2 . ."
+    ". . . . . . . . . . . . . ."
+    ". . . . . startgame startgame startgame . . . . . ."
+    ". . . . . . . . . . . . . ."
+    
+    ;
+
+}
+.player1header{
+    grid-area: header1;
+    font-size: 60px;
+}
+.player2header{
+    grid-area: header2;
+    font-size: 60px;
+}
+
+.player1inputtitle{
+    grid-area: p1inputtitle;
+}
+.player2inputtitle{
+    grid-area: p2inputtitle;
+}
+.inputtitle{
+    font-size: 15px;
+    align-self: flex-end;
+}
+.player1input{
+    height: 100%;
+    grid-area: p1;
+}
+.player2input{
+    height: 100%;
+    grid-area: p2;
+}
+
+.startgamearea{
+    grid-area: startgame;
+    /* width: 100%; */
+    text-align: left;
+    /* justify-self: flex-end;  */
+}
+#startgame{
+    padding: 3px;
 }
