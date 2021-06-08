@@ -106,6 +106,7 @@ const gameBoard = (() => {
 // ************************gameplay MODULE***********************************************************
 
 const gamePlay = (() => {
+    let winnermessage = document.querySelector('.winnermessage');
     // initial player inputs for names
     const playerInputs = () => {
         PLAYER1.name = document.querySelector('#p1name').value;
@@ -144,6 +145,7 @@ const gamePlay = (() => {
 
     const resetGame = () => {
         waitingForInput = true;
+        winnermessage.textContent = "";
         initialGameSettings();
         displayPlayerInputPanel();
         gameBoard.resetGameBoard();
@@ -270,12 +272,18 @@ const gamePlay = (() => {
                 if (gameWon === true){
                     switch (true){
                         case (P1win === true):
+                            winnermessage.textContent = `${PLAYER1.name} wins!`;
+                            winnermessage.style.color = 'green';
                             console.log(`${PLAYER1.name} wins`)
                             break;
                         case (P2win === true):
+                            winnermessage.textContent = `${PLAYER2.name} wins!`;
+                            winnermessage.style.color = 'green';
                             console.log(`${PLAYER2.name} wins`)
                             break;
                         case (P1win === false && P2win === false):
+                            winnermessage.textContent = `TIE!`;
+                            winnermessage.style.color = 'orange';
                             console.log(`TIE!`);
                             break;
                     }
