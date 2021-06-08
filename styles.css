@@ -41,7 +41,9 @@ body{
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
 }
-
+.gameboardsquare:hover{
+    background-color: rgba(255, 192, 208, 0.459);
+}
 .gameboardsquare.zero{
     border-bottom: 2px black solid;
 }
