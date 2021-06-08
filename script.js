@@ -273,12 +273,12 @@ const gamePlay = (() => {
                     switch (true){
                         case (P1win === true):
                             winnermessage.textContent = `${PLAYER1.name} wins!`;
-                            winnermessage.style.color = 'green';
+                            winnermessage.style.color = 'white';
                             console.log(`${PLAYER1.name} wins`)
                             break;
                         case (P2win === true):
                             winnermessage.textContent = `${PLAYER2.name} wins!`;
-                            winnermessage.style.color = 'green';
+                            winnermessage.style.color = 'white';
                             console.log(`${PLAYER2.name} wins`)
                             break;
                         case (P1win === false && P2win === false):
