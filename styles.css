@@ -75,7 +75,7 @@ body{
     width: 270px;
     height: 240px;
     margin-top: 50px;
-    background-color:rgba(128, 128, 128, 0.103);
+    /* background-color:rgba(128, 128, 128, 0.103); */
 }
 
 .namedisplay{
@@ -121,7 +121,8 @@ body{
     grid-area: resetgame;
 }
 #resetgame{
-    /* height: 100px; */
+    padding: 6px;
+    font-size: 11px;
 }
 
 .startoptions{
@@ -189,5 +190,6 @@ body{
     /* justify-self: flex-end;  */
 }
 #startgame{
-    padding: 3px;
+    padding: 6px;
+    font-size: 11px;
 }
