@@ -11,59 +11,38 @@ const playerFactory = (playernumber, name, playersymbol) => {
 const PLAYER1 = playerFactory(1, "", "X");
 const PLAYER2 = playerFactory(2, "", "O");
 
-// ************************create players from user input MODULE?**********************************
-
-// function playerInputs(){
-//     PLAYER1.name = document.querySelector('#p1name').value;
-//     PLAYER2.name = document.querySelector('#p2name').value;
-// }
-
-
-// function displayPlayerNames(){
-//     let startoptions = document.querySelector('.startoptions');
-//     let namedisplay = document.querySelector('.namedisplay');
-//     let player1text =  document.querySelector('.player1');
-//     let player2text = document.querySelector('.player2');
-//     player1text.textContent = `${PLAYER1.name}: ${PLAYER1.getSymbol()}`;
-//     player2text.textContent = `${PLAYER2.name}: ${PLAYER2.getSymbol()}`;
-//     startoptions.style.display = 'none'; 
-//     namedisplay.style.opacity = '100';
-// }
-
-// function startGame(){
-//     playerInputs();
-//     displayPlayerNames();
-// }
-// const startgamebutton = document.querySelector('.startgame.btn');
-// startgamebutton.addEventListener('click', startGame);
-
-
-
 
 
 // ************************GAMEBOARD MODULE*********************************************************
 
 const gameBoard = (() => {
     const EMPTY = null;
-    // const GAMEBOARDARRAY = ["X", "O", "X", "X", EMPTY, "X", "X", "O", "X"];
-    const GAMEBOARDARRAY = [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY];
+    const GAMEBOARDARRAY = 
+    [
+        [EMPTY, EMPTY, EMPTY], 
+        [EMPTY, EMPTY, EMPTY], 
+        [EMPTY, EMPTY, EMPTY]
+    ];
 
     const resetGameBoard = () => {
         for (i=0; i<GAMEBOARDARRAY.length; i++){
-        GAMEBOARDARRAY[i] = EMPTY;
+            for(j=0; j<GAMEBOARDARRAY[i].length; j++){
+        GAMEBOARDARRAY[i][j] = EMPTY;
+            }
         }
         displayGameboard();
     }
     const addSymboltoGameboardArray = (e) => {
 
-        let index = e.target.getAttribute('data-index');
+        let indexX = e.target.getAttribute('data-index-x');
+        let indexY = e.target.getAttribute('data-index-y');
 
-        if (gameBoard.GAMEBOARDARRAY[index] === EMPTY && gamePlay.getGameWon() === false){
+        if (gameBoard.GAMEBOARDARRAY[indexX][indexY] === EMPTY && gamePlay.getGameWon() === false){
             if (gamePlay.getP1turn() === true){
-                gameBoard.GAMEBOARDARRAY[index] = PLAYER1.getSymbol();
+                gameBoard.GAMEBOARDARRAY[indexX][indexY] = PLAYER1.getSymbol();
 
             } else if (gamePlay.getP2turn() === true){
-                gameBoard.GAMEBOARDARRAY[index] = PLAYER2.getSymbol();
+                gameBoard.GAMEBOARDARRAY[indexX][indexY] = PLAYER2.getSymbol();
             }
             gamePlay.play();
         };
@@ -78,13 +57,16 @@ const gameBoard = (() => {
     })();
 
     const initalDisplay = (() => {
-        for(i=0; i< GAMEBOARDARRAY.length; i++){
-            let square = document.createElement('div');
-            square.textContent = GAMEBOARDARRAY[i];
-            square.setAttribute('data-index', i);
-            square.classList.add('square');
-            let grid = document.querySelector('.grid');
-            grid.appendChild(square);
+        for(i=0; i < GAMEBOARDARRAY.length; i++){
+            for(j=0; j<GAMEBOARDARRAY[i].length; j++){
+                let square = document.createElement('div');
+                square.textContent = GAMEBOARDARRAY[i][j];
+                square.setAttribute('data-index-x', i);
+                square.setAttribute('data-index-y', j);
+                square.classList.add('square');
+                let grid = document.querySelector('.grid');
+                grid.appendChild(square);
+            }
         }
     })();
 
@@ -95,13 +77,16 @@ const gameBoard = (() => {
             grid.removeChild(square);
         }
         );        
-        for(i=0; i< GAMEBOARDARRAY.length; i++){
-            let square = document.createElement('div');
-            square.textContent = GAMEBOARDARRAY[i];
-            square.setAttribute('data-index', i);
-            square.classList.add('square');
-            let grid = document.querySelector('.grid');
-            grid.appendChild(square);
+        for(i=0; i < GAMEBOARDARRAY.length; i++){
+            for(j=0; j<GAMEBOARDARRAY[i].length; j++){
+                let square = document.createElement('div');
+                square.textContent = GAMEBOARDARRAY[i][j];
+                square.setAttribute('data-index-x', i);
+                square.setAttribute('data-index-y', j);
+                square.classList.add('square');
+                let grid = document.querySelector('.grid');
+                grid.appendChild(square);
+            }
         }
     }
     return{
@@ -207,73 +192,73 @@ const gamePlay = (() => {
         let gameboard = gameBoard.GAMEBOARDARRAY;
         switch (true){
         // player 1 win situations
-        case (gameboard[0] === PLAYER1.getSymbol() && gameboard[1] === PLAYER1.getSymbol() && gameboard[2] === PLAYER1.getSymbol()):
+        case (gameboard[0][0] === PLAYER1.getSymbol() && gameboard[0][1] === PLAYER1.getSymbol() && gameboard[0][2] === PLAYER1.getSymbol()):
             gameWon = true;
             P1win = true;
             break;
-        case (gameboard[3] === PLAYER1.getSymbol() && gameboard[4] === PLAYER1.getSymbol() && gameboard[5] === PLAYER1.getSymbol()):
+        case (gameboard[1][0] === PLAYER1.getSymbol() && gameboard[1][1] === PLAYER1.getSymbol() && gameboard[1][2] === PLAYER1.getSymbol()):
             gameWon = true;
             P1win = true;
             break;
-        case (gameboard[6] === PLAYER1.getSymbol() && gameboard[7] === PLAYER1.getSymbol() && gameboard[8] === PLAYER1.getSymbol()):
+        case (gameboard[2][0] === PLAYER1.getSymbol() && gameboard[2][1] === PLAYER1.getSymbol() && gameboard[2][2] === PLAYER1.getSymbol()):
             gameWon = true;
             P1win = true;
             break;
-        case (gameboard[0] === PLAYER1.getSymbol() && gameboard[3] === PLAYER1.getSymbol() && gameboard[6] === PLAYER1.getSymbol()):
+        case (gameboard[0][0] === PLAYER1.getSymbol() && gameboard[1][0] === PLAYER1.getSymbol() && gameboard[2][0] === PLAYER1.getSymbol()):
             gameWon = true;
             P1win = true;
             break;
-        case (gameboard[1] === PLAYER1.getSymbol() && gameboard[4] === PLAYER1.getSymbol() && gameboard[7] === PLAYER1.getSymbol()):
+        case (gameboard[0][1] === PLAYER1.getSymbol() && gameboard[1][1] === PLAYER1.getSymbol() && gameboard[2][1] === PLAYER1.getSymbol()):
             gameWon = true;
             P1win = true;
             break;
-        case (gameboard[2] === PLAYER1.getSymbol() && gameboard[5] === PLAYER1.getSymbol() && gameboard[8] === PLAYER1.getSymbol()):
+        case (gameboard[0][2] === PLAYER1.getSymbol() && gameboard[1][2] === PLAYER1.getSymbol() && gameboard[2][2] === PLAYER1.getSymbol()):
             gameWon = true;
             P1win = true;
             break;
-        case (gameboard[0] === PLAYER1.getSymbol() && gameboard[4] === PLAYER1.getSymbol() && gameboard[8] === PLAYER1.getSymbol()):
+        case (gameboard[0][0] === PLAYER1.getSymbol() && gameboard[1][1] === PLAYER1.getSymbol() && gameboard[2][2] === PLAYER1.getSymbol()):
             gameWon = true;
             P1win = true;
             break;
-        case (gameboard[2] === PLAYER1.getSymbol() && gameboard[4] === PLAYER1.getSymbol() && gameboard[6] === PLAYER1.getSymbol()):
+        case (gameboard[0][2] === PLAYER1.getSymbol() && gameboard[1][1] === PLAYER1.getSymbol() && gameboard[2][0] === PLAYER1.getSymbol()):
             gameWon = true;
             P1win = true;
             break;
     // player 2 win situations
-        case (gameboard[0] === PLAYER2.getSymbol() && gameboard[1] === PLAYER2.getSymbol() && gameboard[2] === PLAYER2.getSymbol()):
+        case (gameboard[0][0] === PLAYER2.getSymbol() && gameboard[0][1] === PLAYER2.getSymbol() && gameboard[0][2] === PLAYER2.getSymbol()):
             gameWon = true;
             P2win = true;
             break;
-        case (gameboard[3] === PLAYER2.getSymbol() && gameboard[4] === PLAYER2.getSymbol() && gameboard[5] === PLAYER2.getSymbol()):
+        case (gameboard[1][0] === PLAYER2.getSymbol() && gameboard[1][1] === PLAYER2.getSymbol() && gameboard[1][2] === PLAYER2.getSymbol()):
             gameWon = true;
             P2win = true;
             break;
-        case (gameboard[6] === PLAYER2.getSymbol() && gameboard[7] === PLAYER2.getSymbol() && gameboard[8] === PLAYER2.getSymbol()):
+        case (gameboard[2][0] === PLAYER2.getSymbol() && gameboard[2][1] === PLAYER2.getSymbol() && gameboard[2][2] === PLAYER2.getSymbol()):
             gameWon = true;
             P2win = true;
             break;
-        case (gameboard[0] === PLAYER2.getSymbol() && gameboard[3] === PLAYER2.getSymbol() && gameboard[6] === PLAYER2.getSymbol()):
+        case (gameboard[0][0] === PLAYER2.getSymbol() && gameboard[1][0] === PLAYER2.getSymbol() && gameboard[2][0] === PLAYER2.getSymbol()):
             gameWon = true;
             P2win = true;
             break;
-        case (gameboard[1] === PLAYER2.getSymbol() && gameboard[4] === PLAYER2.getSymbol() && gameboard[7] === PLAYER2.getSymbol()):
+        case (gameboard[0][1] === PLAYER2.getSymbol() && gameboard[1][1] === PLAYER2.getSymbol() && gameboard[2][1] === PLAYER2.getSymbol()):
             gameWon = true;
             P2win = true;
             break;
-        case (gameboard[2] === PLAYER2.getSymbol() && gameboard[5] === PLAYER2.getSymbol() && gameboard[8] === PLAYER2.getSymbol()):
+        case (gameboard[0][2] === PLAYER2.getSymbol() && gameboard[1][2] === PLAYER2.getSymbol() && gameboard[2][2] === PLAYER2.getSymbol()):
             gameWon = true;
             P2win = true;
             break;
-        case (gameboard[0] === PLAYER2.getSymbol() && gameboard[4] === PLAYER2.getSymbol() && gameboard[8] === PLAYER2.getSymbol()):
+        case (gameboard[0][0] === PLAYER2.getSymbol() && gameboard[1][1] === PLAYER2.getSymbol() && gameboard[2][2] === PLAYER2.getSymbol()):
             gameWon = true;
             P2win = true;
             break;
-        case (gameboard[2] === PLAYER2.getSymbol() && gameboard[4] === PLAYER2.getSymbol() && gameboard[6] === PLAYER2.getSymbol()):
+        case (gameboard[0][2] === PLAYER2.getSymbol() && gameboard[1][1] === PLAYER2.getSymbol() && gameboard[2][0] === PLAYER2.getSymbol()):
             gameWon = true;
             P2win = true;
             break;
     // tie situations
-        case (gameboard[0] != null && gameboard[1] != null && gameboard[2] != null && gameboard[3] != null && gameboard[4] != null && gameboard[5] != null && gameboard[6] != null && gameboard[7] != null && gameboard[8] != null):
+        case (gameboard[0][0] != null && gameboard[0][1] != null && gameboard[0][2] != null && gameboard[1][0] != null && gameboard[1][1] != null && gameboard[1][2] != null && gameboard[2][0] != null && gameboard[2][1] != null && gameboard[2][2] != null):
             gameWon = true;
             break;
         }
